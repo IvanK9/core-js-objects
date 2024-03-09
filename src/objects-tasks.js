@@ -33,8 +33,15 @@ function shallowCopy(obj) {
  *    mergeObjects([{a: 1, b: 2}, {b: 3, c: 5}]) => {a: 1, b: 5, c: 5}
  *    mergeObjects([]) => {}
  */
-function mergeObjects(/* objects */) {
-  throw new Error('Not implemented');
+function mergeObjects(objects) {
+  const newObj = {};
+
+  objects.forEach((el) => {
+    Object.entries(el).forEach(([key, value]) => {
+      newObj[key] = (newObj[key] || 0) + value;
+    });
+  });
+  return newObj;
 }
 
 /**
@@ -146,8 +153,19 @@ function makeWord(lettersObject) {
  *    sellTickets([25, 25, 50]) => true
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  let change = 0;
+  let result = true;
+
+  queue.forEach((el) => {
+    if (el <= 25) {
+      change += 25;
+    }
+    if (el - change > 0) {
+      result = false;
+    }
+  });
+  return result;
 }
 
 /**
@@ -224,8 +242,14 @@ function fromJSON(/* proto, json */) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    if (a.country < b.country) return -1;
+    if (a.country > b.country) return 1;
+    if (a.city < b.city) return -1;
+    if (a.city > b.city) return 1;
+    return 0;
+  });
 }
 
 /**
